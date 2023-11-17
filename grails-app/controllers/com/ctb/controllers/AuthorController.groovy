@@ -15,7 +15,7 @@ class AuthorController {
         respond authorService.getAllAuthors();
     }
 
-    def getAuthor(@RequestParameter('id')int id){
+    def getAuthor(@RequestParameter('id') int id){
         try{
 
             def author= authorService.getAuthorById(id)

@@ -2,6 +2,7 @@ package com.ctb.sercices
 
 import com.ctb.domains.Author
 import com.ctb.domains.Post
+import com.ctb.exceptions.PostNotFoundException
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -22,5 +23,19 @@ class PostService {
 
         a.addToPosts(new Post(title: title,content: content,createAt: date)).save()
 
+    }
+
+    def getPostById(int id){
+
+        def post = Post.get(id);
+
+
+        if(!post){
+            throw new PostNotFoundException('Post not Found')
+        }
+
+        println(post.id)
+
+        return post;
     }
 }
