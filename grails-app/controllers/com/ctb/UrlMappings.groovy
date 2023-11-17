@@ -13,5 +13,9 @@ class UrlMappings {
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
         "404"(view: '/notFound')
+
+        //"/author/"(controller: "author", action: "index")
+        get "/$controller?"(action:"index")
+        get "/$controller/$id?"(action:"getAuthor")
     }
 }

@@ -11,6 +11,11 @@ class PostService {
 
     }
 
+    def getAllPosts(){
+
+        return Post.list();
+    }
+
     def createPost(String title,String content,int idAuthor,Date date){
 
         def a = Author.get(idAuthor)
