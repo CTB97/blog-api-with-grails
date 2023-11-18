@@ -17,7 +17,9 @@ class UrlMappings {
         //"/author/"(controller: "author", action: "index")
         get "/$controller?"(action:"index")
         get "/$controller/$id?"(action:"getAuthor")
+        post "/$controller?"(action:"createAuthor")
 
         get "/$controller/$id?"(action:"getPost")
+
     }
 }
