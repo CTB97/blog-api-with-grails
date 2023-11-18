@@ -1,6 +1,8 @@
 package com.ctb.controllers
 
+import com.ctb.domains.Author
 import com.ctb.exceptions.AuthorNotFoundException
+import com.ctb.exceptions.AuthorNotValidateException
 import com.ctb.sercices.AuthorService
 import grails.rest.*
 import grails.converters.*
@@ -13,6 +15,31 @@ class AuthorController {
     def index() {
 
         respond authorService.getAllAuthors();
+    }
+
+    def createAuthor(){
+        def requestBody= request.JSON
+
+        def firstName= requestBody.firstName
+        def lastName= requestBody.lastName
+        def author= new Author(firstName: firstName,lastName: lastName)
+
+        try {
+            authorService.createAuthor(firstName,lastName)
+            def response=[:]
+            response.status=200
+            response.message="success"
+            render response as JSON
+
+        }
+        catch (AuthorNotValidateException e){
+            def response=[:]
+            response.status=400
+            response.message="failed"
+            render response as JSON
+
+        }
+
     }
 
     def getAuthor(@RequestParameter('id') int id){
