@@ -9,6 +9,6 @@ class Post {
     static belongsTo=[author:Author]
 
     static constraints = {
-        title(blank:false)
+        //title(blank:false)
     }
 }

@@ -2,8 +2,12 @@ package com.ctb.sercices
 
 import com.ctb.domains.Author
 import com.ctb.domains.Post
+import com.ctb.exceptions.AuthorNotFoundException
 import com.ctb.exceptions.PostNotFoundException
+import com.ctb.exceptions.PostNotValidateException
 import grails.gorm.transactions.Transactional
+
+import java.time.Instant
 
 @Transactional
 class PostService {
@@ -17,11 +21,24 @@ class PostService {
         return Post.list();
     }
 
-    def createPost(String title,String content,int idAuthor,Date date){
+    def createPost(String title,String content,int idAuthor){
 
         def a = Author.get(idAuthor)
+        if (a){
+            def p = new Post(title: title,content: content,createAt: Instant.now(),author: a)
+            if(p.validate()){
+                a.addToPosts(p).save()
+            }
+            else
+            {
+                throw new PostNotValidateException('invalid post')
+            }
 
-        a.addToPosts(new Post(title: title,content: content,createAt: date)).save()
+        }
+        else {
+            throw new AuthorNotFoundException("author not found")
+        }
+
 
     }
 
