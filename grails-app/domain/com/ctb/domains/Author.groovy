@@ -8,5 +8,7 @@ class Author {
     static hasMany=[posts:Post]
 
     static constraints = {
+        firstName(blank:false)
+        lastName(blank:false)
     }
 }
