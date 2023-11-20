@@ -20,6 +20,7 @@ class UrlMappings {
         post "/$controller?"(action:"createAuthor")
 
         get "/$controller/$id?"(action:"getPost")
+        post "/$controller?"(action:"createPost")
 
     }
 }
